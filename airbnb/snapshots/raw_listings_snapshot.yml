@@ -1,0 +1,12 @@
+snapshots:
+  - name: scd_raw_listings
+    relation: source('airbnb', 'listings')
+    config:
+      unique_key: id
+      strategy: timestamp
+      updated_at: updated_at
+      # what happens when a record is deleted from the source table? Options are:
+      # ignore: default behavior, keep the record in the snapshot table and mark it as deleted
+      # new_record: keep the record in the snapshot table, but mark it as deleted
+      # invalidate: keep the record in the snapshot table, not marked but dbt_valid_to updates from null to the current timestamp
+      hard_deletes: invalidate
